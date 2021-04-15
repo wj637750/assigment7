@@ -37,7 +37,7 @@ namespace assigment7
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc();
         }
 
@@ -65,6 +65,7 @@ namespace assigment7
                     name: "default",
                     template: "{controller=home}/{action=Index}/{id?}");
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }
