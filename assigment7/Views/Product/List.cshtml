@@ -8,11 +8,31 @@
 
 @foreach (var p in Model.Products)
 {
-    <div>
-        <h3>@p.Name</h3>
-        @p.Description
-        <h4>@p.Price.ToString("c")</h4>
+    <div class="card card-outline-primary m-1 p-1">
+        <div class="bg-faded p-1">
+            <h4>@p.Name
+                <span class="badge" badge=pill badge-primary" style="float:right">
+                    @p.Price.ToString("c")
+                </span>
+            </h4>
+        </div>
+        <div class="card-text p-1"></div>
     </div>
+    <form id="Model.ProductID" asp-action="AddToCart"
+            asp-controller="Cart" method="post">
+        <input type="hidden" asp-for="@p.ProductID" />
+        <input type="hidden" name="returnUrl"
+               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="card-text p-1">
+            @p.Description
+            <button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">
+            add to cart
+            </button>
+        </span>
+    </form>
 }
-<div page-model="@Model.PagingInfo" page-action="List"></div>
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div> 
 <a href="?productPage=2">next page</a>
