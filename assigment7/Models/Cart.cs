@@ -28,6 +28,9 @@ namespace assigment7.Models
         }
 
         public virtual void RemoveLine(Product product) =>
+             LineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
+
+        public virtual decimal ComputeTotalValue() =>
             LineCollection.Sum(e => e.Product.Price * e.Quantity);
 
         public virtual void Clear() => LineCollection.Clear();
